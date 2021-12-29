@@ -1,10 +1,8 @@
 -- CreateTable
 CREATE TABLE "Card" (
-    "id" SERIAL NOT NULL,
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "name" TEXT NOT NULL,
-    "hp" INTEGER NOT NULL,
-
-    CONSTRAINT "Card_pkey" PRIMARY KEY ("id")
+    "hp" INTEGER NOT NULL
 );
 
 -- CreateIndex
