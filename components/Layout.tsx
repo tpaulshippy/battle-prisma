@@ -6,6 +6,10 @@ type Props = {
 }
 
 const Layout: React.FC<Props> = ( props ) => (
+  <html>
+    <head>
+      <title>Cards (Next/Prisma)</title>
+    </head>
   <div>
     <Header />
     <div className="layout">{props.children}</div>
@@ -45,6 +49,7 @@ const Layout: React.FC<Props> = ( props ) => (
       }
     `}</style>
   </div>
+  </html>
 )
 
 export default Layout
