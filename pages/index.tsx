@@ -2,6 +2,7 @@ import React from 'react'
 import { GetServerSideProps } from 'next'
 import Layout from '../components/Layout'
 import Card, { CardProps } from '../components/Card'
+import ApiClient from '../apiClient'
 
 type Props = {
   feed: CardProps[]
@@ -37,8 +38,7 @@ const Cards : React.FC<Props> = props => {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const res = await fetch('http://localhost:3001/cards')
-  const feed = await res.json()
+  const feed = await ApiClient.getCards()
   return {
     props: { feed },
   }

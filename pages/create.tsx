@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Layout from '../components/Layout'
 import Router from 'next/router'
+import ApiClient from '../apiClient'
 
 const Create: React.FC = () => {
   const [name, setName] = useState('')
@@ -10,12 +11,8 @@ const Create: React.FC = () => {
     e.preventDefault()
     try {
       const body = { name, hp }
-      await fetch(`http://localhost:3001/cards`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body),
-      })
-      await Router.push('/')
+      await ApiClient.addCard(body)
+       await Router.push('/')
     } catch (error) {
       console.error(error)
     }

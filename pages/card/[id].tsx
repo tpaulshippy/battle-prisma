@@ -3,18 +3,10 @@ import { GetServerSideProps } from 'next'
 import Layout from '../../components/Layout'
 import Router from 'next/router'
 import { CardProps } from '../../components/Card'
-
-async function update(id: number): Promise<void> {
-  await fetch(`http://localhost:3001/cards/${id}`, {
-    method: 'PUT',
-  })
-  await Router.push('/')
-}
+import ApiClient from '../../apiClient'
 
 async function destroy(id: number): Promise<void> {
-  await fetch(`http://localhost:3001/cards/${id}`, {
-    method: 'DELETE',
-  })
+  ApiClient.destroy(id)
   await Router.push('/')
 }
 
@@ -55,8 +47,7 @@ const Card: React.FC<CardProps> = props => {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const res = await fetch(`http://localhost:3001/cards/${context.params.id}`)
-  const data = await res.json()
+  const data = await ApiClient.getCard(context.params.id)
   return { props: { ...data } }
 }
 
