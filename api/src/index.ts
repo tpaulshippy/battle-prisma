@@ -1,8 +1,8 @@
-import { PrismaClient } from '@prisma/client'
+import prisma from './client'
+import { createCard, updateCard } from './functions'
 import cors from 'cors'
 import express from 'express'
 
-const prisma = new PrismaClient()
 const app = express()
 
 app.use(express.json())
@@ -16,11 +16,9 @@ app.get('/cards', async (req, res) => {
 
 app.post(`/cards`, async (req, res) => {
   const { name, hp } = req.body
-  const result = await prisma.card.create({
-    data: {
+  const result = await createCard({
       name,
       hp: parseInt(hp),
-    },
   })
   res.json(result)
 })
@@ -48,12 +46,10 @@ app.get(`/cards/:id`, async (req, res) => {
 app.put('/cards/:id', async (req, res) => {
   const { id } = req.params
   const { name, hp } = req.body
-  const post = await prisma.card.update({
-    where: { id: Number(id) },
-    data: { 
+  const post = await updateCard({ 
+      id: parseInt(id),
       name,
       hp, 
-    },
   })
   res.json(post)
 })
